@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href= {% static "style.css" %}>
+</head>
+<body>
+<form action="{% url 'form_new' %}" method="post" class="smart-green">{% csrf_token %}
+    <h1>留言信息
+        <span>请留下你的信息</span>
+    </h1>
+    <label>
+        <span>姓名：</span>
+        <input id="name" type="text" name="name" value="{% ifequal my_message.name|slice:'8' 'xiaolan1'|slice:'8' %}对应中文昵称：小懒额{% else %}未找到中文昵称{% endifequal %}" class="error" placeholder="请输入您的姓名"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>邮箱：</span>
+        <input id="email" type="email" value="{{ my_message.email }}" name="email" placeholder="请输入邮箱地址"/>
+        <div class="error-msg"></div>
+    </label>
+
+     <label>
+        <span>地址：</span>
+        <input id="address" type="text" value="{{ my_message.address }}" name="address" placeholder="请输入地址"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>留言：</span>
+        <textarea name="message" id="message" placeholder="请输入你的建议">{{ my_message.message }}</textarea>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" value="提交"/>
+    </label>
+
+</form>
+
+
+</body>
+</html>
